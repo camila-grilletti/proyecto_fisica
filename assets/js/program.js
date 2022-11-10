@@ -1,23 +1,20 @@
 // Switch
 var checkbox = document.getElementById('check1');
-checkbox.addEventListener("change", validaCheckbox, false);
-function validaCheckbox() {
-    var checked = checkbox.checked;
-    if(checked) {
-        document.getElementById('bloque').innerHTML = 'El bloque se encuentra en una pendiente';
-    } else {
-        document.getElementById('bloque').innerHTML = 'El bloque no se encuentra en una pendiente';
-    };
-};
-
 var checkbox2 = document.getElementById('check2');
-checkbox2.addEventListener("change", validaCheckbox, false);
-function validaCheckbox() {
-    var checked = checkbox2.checked;
+
+checkbox.addEventListener("change", () => {
+    validaCheckbox(checkbox, 'bloque', 'El bloque se encuentra en una pendiente', 'El bloque no se encuentra en una pendiente');
+});
+checkbox2.addEventListener("change", () => {
+    validaCheckbox(checkbox2, 'fric', 'Hay fricción en la simulación', 'No hay fricción en la simulación');
+});
+
+function validaCheckbox(check, elem, msg1, msg2) {
+    var checked = check.checked;
     if(checked) {
-        document.getElementById('fric').innerHTML = 'Hay fricción en la simulación';
+        document.getElementById(elem).innerHTML = msg1;
     } else {
-        document.getElementById('fric').innerHTML = 'No hay fricción en la simulación';
+        document.getElementById(elem).innerHTML = msg2;
     };
 };
 
@@ -110,127 +107,55 @@ document.addEventListener("DOMContentLoaded", function() {
     }); 
 });
 
-// Todo esto se puede simplificar y lo sabés
+// Traslado de forms para generar el efecto 'carrusel'
 let ancho = screen.width;
 document.getElementById("forms").style.width = ancho;
 document.getElementById("forms").style.display = "flex";
 document.getElementById("forms").style.overflow = "hidden";
 
 
+function translateSet(formStart, formFinish) {
+    setTimeout(() => {
+        document.getElementById(formStart).style.display = 'none';
+        document.getElementById(formFinish).style.display = 'flex';
+        document.getElementById(formFinish).style.transform = 'translateX(30em)';            
+    }, 1000);
+
+    setTimeout(() => {
+        document.getElementById(formFinish).style.transform = 'translateX(0em)';
+    }, 1100);
+
+    document.getElementById(formStart).style.transform = 'translateX(-200em)';
+};
+
+
 function translate(type) {
     if (type == 1) {
         if (checkbox.checked == true) {
-            setTimeout(() => {
-                document.getElementById('form1').style.display = 'none';
-                document.getElementById('form2').style.display = 'flex';
-                document.getElementById('form2').style.transform = 'translateX(30em)';
-                document.querySelector('body').style.marginBottom = '0';
-                document.getElementById('form3').style.display = 'none';
-                document.getElementById('form4').style.display = 'none';
-            
-            }, 1000);
-    
-            setTimeout(() => {
-                document.getElementById('form2').style.transform = 'translateX(0em)';
-                document.querySelector('body').style.marginBottom = '0';
-                document.getElementById('form3').style.display = 'none';
-                document.getElementById('form4').style.display = 'none';
-            }, 1100);
-        
-            document.getElementById('form1').style.transform = 'translateX(-200em)';
+            translateSet('form1', 'form2');
         } else {
-            setTimeout(() => {
-                document.getElementById('form1').style.display = 'none';
-                document.getElementById('form3').style.display = 'flex';
-                document.getElementById('form3').style.transform = 'translateX(30em)';
-                document.querySelector('body').style.marginBottom = '0';
-                
-
-                document.body.style.height = altura;
-                document.body.style.width = ancho;
-                console.log(document.body.style.width);
-                console.log(screen.width);
-
-            }, 1000);
-        
-            setTimeout(() => {
-                document.getElementById('form3').style.transform = 'translateX(0em)';
-                document.querySelector('body').style.marginBottom = '0';
-                
-
-                document.body.style.height = altura;
-                document.body.style.width = ancho;
-                console.log(screen.width);
-
-            }, 1100);
-        
-            let altura = screen.height;
-            let ancho = screen.width;
-            console.log(screen.width);
-
-
-            document.getElementById('form1').style.transform = 'translateX(-200em)';
+            translateSet('form1', 'form3');
         };
 
     } else if (type == 2) {
-        setTimeout(() => {
-            document.getElementById('form2').style.display = 'none';
-            document.getElementById('finish').style.display = 'flex';
-            document.getElementById('finish').style.transform = 'translateX(30em)';
-        }, 1000);
-    
-        setTimeout(() => {
-            document.getElementById('finish').style.transform = 'translateX(0em)';
-        }, 1100);
-    
-        document.getElementById('form2').style.transform = 'translateX(-200em)';
+        translateSet('form2', 'finish');
         cargarDatos();
-
 
     } else if (type == 3) {
         if (checkbox2.checked == true) {
-            setTimeout(() => {
-                document.getElementById('form3').style.display = 'none';
-                document.getElementById('form4').style.display = 'flex';
-                document.getElementById('form4').style.transform = 'translateX(30em)';
-            }, 1000);
-        
-            setTimeout(() => {
-                document.getElementById('form4').style.transform = 'translateX(0em)';
-            }, 1100);
-        
-            document.getElementById('form3').style.transform = 'translateX(-200em)';
+            translateSet('form3', 'form4');
         } else {
-            setTimeout(() => {
-                document.getElementById('form3').style.display = 'none';
-                document.getElementById('finish').style.display = 'flex';
-                document.getElementById('finish').style.transform = 'translateX(30em)';
-            }, 1000);
-        
-            setTimeout(() => {
-                document.getElementById('finish').style.transform = 'translateX(0em)';
-            }, 1100);
-        
-            document.getElementById('form3').style.transform = 'translateX(-200em)';
+            translateSet('form3', 'finish');
             cargarDatos();
         };
-    } else if (type == 4) {
-        setTimeout(() => {
-            document.getElementById('form4').style.display = 'none';
-            document.getElementById('finish').style.display = 'flex';
-            document.getElementById('finish').style.transform = 'translateX(30em)';
-        }, 1000);
-    
-        setTimeout(() => {
-            document.getElementById('finish').style.transform = 'translateX(0em)';
-        }, 1100);
-    
-        document.getElementById('form4').style.transform = 'translateX(-200em)';
-        cargarDatos();
 
+    } else if (type == 4) {
+        translateSet('form4', 'finish');
+        cargarDatos();
     };
 };
 
+// Acá comienza el programa de cargar datos
 function cargarDatos() {
     // SessionStorage
     const getdata1 = JSON.parse(sessionStorage.getItem('datos1'));
@@ -241,7 +166,6 @@ function cargarDatos() {
     // Variables pedidas por el usuario
     const pendiente = getdata1[1];
     const masa = +(getdata1[0]);
-    console.log('Masa: ' + masa + 'Pendiente: ' + pendiente);
 
     // Variables inmutables
     const gravedad = 10;
@@ -254,82 +178,61 @@ function cargarDatos() {
 
     // Funciones
     function complex_float(a, b, uest, udin) {
+        // Hace unos cálculos básicos
         pesox = a; 
         pesoy = b; 
         console.log(pesoy);
         ffe = uest * pesoy;
         ffd = udin * pesoy;
         mostrar_resultados();
-
         return pesox, pesoy, ffe, ffd;
     };
 
-
     function decimal(x) {
+        // Coloca hasta 2 números después de la coma
         var dec = x.toFixed(2);
         return dec;
     };
 
-
     function mostrar_resultados() {
+        // Muestra los resultados del cálculo en la tabla
         tablaResultados('Fuerza Normal', `${decimal(normal)} N`);
-        console.log(`La Normal es de ${decimal(normal)}`);
         tablaResultados('Peso en el eje x', `${decimal(pesox)} N`);
-        console.log(`El peso en el eje x es de ${decimal(pesox)}`);
         tablaResultados('Peso en el eje y', `${decimal(pesoy)} N`);
-        console.log(`El peso en el eje y es de ${decimal(pesoy)}`);
         tablaResultados('Fuerza de fricción estática', `${decimal(ffe)}`);
-        console.log(`La fuerza de fricción estática es de ${decimal(ffe)}`);
         tablaResultados('Fuerza de fricción dinámica', `${decimal(ffd)}`);
-        console.log(`La fuerza de fricción dinámica es de ${decimal(ffd)}`);
     
         if (ffe > pesox) {
             tablaResultados('Conclusión', `El objeto no se mueve. Para que se mueva el μe tiene que ser ${decimal(pesox / pesoy)}`);
-            console.log(`El objeto no se mueve, la friccion es muy alta.\nPara que el objeto se mueva el μe tiene que ser ${decimal(pesox / pesoy)}`);
         } else {
             tablaResultados('Conclusión', `El objeto se mueve a ${decimal((pesox - ffd) / masa)} m/s`);
-            console.log(`El objeto se mueve a una aceleracion de ${decimal((pesox - ffd) / masa)} m/s`);
         };
     };
-
 
     // Programa
     if (pendiente == true) {
         var normal = peso;
         var anguloa = parseFloat(getdata2[0]);
-        console.log('Angulo', +(getdata2[0]));
-
         var anguloc = parseFloat(180 - anguloa - 90);
         var pesox_com = (normal / Math.sin((90 * Math.PI) / 180)) * Math.sin((anguloc * Math.PI) / 180); 
         var pesoy_com = (normal / Math.sin((90 * Math.PI) / 180)) * Math.sin((anguloa * Math.PI) / 180); 
-        console.log(pesoy_com);
         var ue = parseFloat(getdata2[1]);
         var ud = parseFloat(getdata2[2]);
-        console.log('UE', +(getdata2[1]));
-        console.log('ED', +(getdata2[2]));
-
         var ffe = peso * ue;
         var ffd = peso * ud;
-
         complex_float(pesox_com, pesoy_com, ue, ud);
+
     } else {
         var fuerza = parseFloat(getdata3[0]);
-        console.log('Fuerza', +(getdata3[0]));
-
         var friccion = getdata3[1];
-        console.log('Fricción', getdata3[1]);
-
         var semueve = true;
 
         if (friccion == true) {
             var ue = parseFloat(getdata4[0]);
-            console.log('UE', +(getdata4[0]));
-
             var ud = parseFloat(getdata4[1]);
-            console.log('UD', +(getdata4[1]));
-
             var ffe = peso * ue;
             var ffd = peso * ud;
+
             if (ffe < fuerza) {
                 semueve = true;
                 var a_ms2 = (fuerza - ffd) / masa;
@@ -337,11 +240,11 @@ function cargarDatos() {
                 semueve = false;
                 var f_mover = decimal(ffe);
             };
+
         } else {
             if (fuerza != 0) {
                 semueve = true;
                 a_ms2 = fuerza / masa;
-                console.log('AMS2' + a_ms2);
             } else {
                 semueve = false;
                 var f_mover = 0.01;
@@ -350,28 +253,16 @@ function cargarDatos() {
 
         if (semueve == true) {
             tablaResultados('Conclusión', `El objeto se mueve a ${decimal(a_ms2)} ms/2`);
-            console.log(`El objeto se mueve a ${decimal(a_ms2)}ms/2`);
         } else {
             tablaResultados('Conclusión', `El objeto no se mueve. Se necesitan mas de ${f_mover} N para mover el objeto`);
-            console.log(`El objeto no se mueve, se necesitan mas de ${f_mover}N para mover el objeto`);
         };
     };
 
-    // Translate
-    setTimeout(() => {
-        document.getElementById('waiting').style.display = 'none';
-        document.getElementById('resultados').style.display = 'flex';
-        document.getElementById('resultados').style.transform = 'translateX(30em)';
-    }, 1000);
-
-    setTimeout(() => {
-        document.getElementById('resultados').style.transform = 'translateX(0em)';
-    }, 1100);
-
-    document.getElementById('waiting').style.transform = 'translateX(-200em)';
+    translateSet('waiting', 'resultados');
 };
 
 function tablaResultados (e1, e2) {
+    // Crea las filas necesarias en la tabla con los resultados indicados en los parámetros
     let container = document.querySelector('tbody');
     let containerItem = document.createElement('tr');
     containerItem.innerHTML = `
