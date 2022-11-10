@@ -3,7 +3,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@700&family=Poppins:wght@600&family=Source+Sans+Pro:wght@200;300;400;600&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300&display=swap');
-
+@font-face {
+    font-family: cover;
+    src: url(/assets/tipografia/Coves\ Light.otf);
+}
 
 * {
     padding: 0;
@@ -16,14 +19,10 @@ body {
     font-family: 'Source Sans Pro', sans-serif;
 }
 
-main {
+/* main {
     width: 100%;
     max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-}
+} */
 
 .container {
     width: 80%;
@@ -42,9 +41,9 @@ br {
 /* Header */
 
 header {
+    position: relative;
     width: 100%;
     font-family: 'Poppins', sans-serif;
-    position: fixed;
     top: 0;
     right: 0;
     transition: all 300ms;
@@ -55,8 +54,8 @@ header {
 /* Nav */
 
 nav {
-    background-color: rgba(243, 243, 243, 0.53);
-    backdrop-filter: blur(8px);
+    background: rgba(94,45,218,1);
+    backdrop-filter: blur(90px);
     padding: 1em 0;
 }
 
@@ -74,7 +73,7 @@ nav div {
 }
 
 .nav a {
-    color: black;
+    color: white;
 }
 
 /* Waves */
@@ -83,12 +82,12 @@ nav div {
     background: #5e2dda;
     background: linear-gradient(180deg, rgba(94,45,218,1) 15%, rgba(218,45,204,1) 79%);
     width: 100%;
-    height: 500px;
+    height: 200px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding-top: 4em;
+    padding-top: 0em;
 }
 
 .path-0{
@@ -131,11 +130,11 @@ nav div {
 }
 
 .title {
-    font-family: 'Manrope', sans-serif;
+    font-family: cover, sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 4px;
     font-size: 30px;
-    font-weight: 900;
-    letter-spacing: 2px;
-    color: #fff;
+    color: white;
 }
 
 /* Forms */
@@ -154,7 +153,7 @@ nav div {
     margin: 0 auto;
 }
 
-#firts_form, #second_form {
+#firts_form, #second_form, #third_form, #four_form {
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -166,7 +165,7 @@ nav div {
     transition: 4s;
 }
 
-#form2 {
+#form2, #form3, #form4 {
     /* position: absolute; */
     top: 0;
     left: 0;
@@ -241,7 +240,7 @@ input[type=number] { -moz-appearance:textfield; }
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-between;
+    justify-content:left;
     column-gap: 1em;
     margin-bottom: 1.5em;
 }
@@ -311,6 +310,8 @@ input:checked + .slider:before {
 /* Button */
 
 .button {
+    outline: none;
+    border: none;
     position: relative;
     padding: 12px 36px;
     margin: 10px 0;
@@ -362,6 +363,15 @@ span {
 
 /* Tabla */
 
+#resultados {
+    top: 0;
+    left: 0;
+    right: 0;
+    transform: translateX(30em);
+    transition: 4s;
+    display: none;
+}
+
 .resultados {
     width: 100%;
     margin: 3em 0;
@@ -372,7 +382,6 @@ span {
                  -20px -20px 60px #ffffff;
     padding: 2em;
     user-select: none;
-    display: none;
 }
 
 .datatable {
@@ -512,7 +521,7 @@ span {
 @media screen and (max-width: 500px) {
     /* Header */
     .title {
-        font-size: 22px;
+        font-size: 25px;
     }
 
     .img_math {
