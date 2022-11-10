@@ -111,6 +111,11 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 // Todo esto se puede simplificar y lo sabés
+let ancho = screen.width;
+document.getElementById("forms").style.width = ancho;
+document.getElementById("forms").style.display = "flex";
+document.getElementById("forms").style.overflow = "hidden";
+
 
 function translate(type) {
     if (type == 1) {
@@ -119,10 +124,17 @@ function translate(type) {
                 document.getElementById('form1').style.display = 'none';
                 document.getElementById('form2').style.display = 'flex';
                 document.getElementById('form2').style.transform = 'translateX(30em)';
+                document.querySelector('body').style.marginBottom = '0';
+                document.getElementById('form3').style.display = 'none';
+                document.getElementById('form4').style.display = 'none';
+            
             }, 1000);
     
             setTimeout(() => {
                 document.getElementById('form2').style.transform = 'translateX(0em)';
+                document.querySelector('body').style.marginBottom = '0';
+                document.getElementById('form3').style.display = 'none';
+                document.getElementById('form4').style.display = 'none';
             }, 1100);
         
             document.getElementById('form1').style.transform = 'translateX(-200em)';
@@ -131,12 +143,32 @@ function translate(type) {
                 document.getElementById('form1').style.display = 'none';
                 document.getElementById('form3').style.display = 'flex';
                 document.getElementById('form3').style.transform = 'translateX(30em)';
+                document.querySelector('body').style.marginBottom = '0';
+                
+
+                document.body.style.height = altura;
+                document.body.style.width = ancho;
+                console.log(document.body.style.width);
+                console.log(screen.width);
+
             }, 1000);
         
             setTimeout(() => {
                 document.getElementById('form3').style.transform = 'translateX(0em)';
+                document.querySelector('body').style.marginBottom = '0';
+                
+
+                document.body.style.height = altura;
+                document.body.style.width = ancho;
+                console.log(screen.width);
+
             }, 1100);
         
+            let altura = screen.height;
+            let ancho = screen.width;
+            console.log(screen.width);
+
+
             document.getElementById('form1').style.transform = 'translateX(-200em)';
         };
 
